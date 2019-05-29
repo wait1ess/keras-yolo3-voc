@@ -162,4 +162,4 @@ python voc_annotation.py
     classes_path = 'model_data/voc_classes.txt'
     anchors_path = 'model_data/yolo_anchors.txt'
 
-7.训练，训练后的模型，默认保存路径为logs/000/trained_weights_final.h5
+### 7、训练，训练后的模型，默认保存路径为logs/000/trained_weights_final.h5
