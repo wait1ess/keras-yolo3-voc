@@ -125,18 +125,7 @@ if __name__ == '__main__':
 
 四、训练自己的目标检测模型（应用于VOC格式数据）
 1.以环境文件夹为根目录创建以下数据集
-.
-└── VOCdevkit     #根目录
-    └── VOC2017   #不同年份的数据集，这里只下载了2007的，还有2007等其它年份的
-        ├── Annotations        #存放xml文件，与JPEGImages中的图片一一对应，解释图片的内容等等
-        ├── ImageSets          #该目录下存放的都是txt文件，txt文件中每一行包含一个图片的名称，末尾会加上±1表示正负样本
-        │   ├── Action
-        │   ├── Layout
-        │   ├── Main
-        │   └── Segmentation
-        ├── JPEGImages         #存放源图片
-        ├── SegmentationClass  #存放的是图片，语义分割相关
-        └── SegmentationObject #存放的是图片，实例分割相关
+![Alt text](keras-yolo3-voc/Dir.jpg)
         
 2、安装标注工具labelImg，标注数据
 
