@@ -128,7 +128,7 @@ if __name__ == '__main__':
 
 ### 1.以环境文件夹为根目录创建以下数据集
 
-![Alt text](https://github.com/wait1ess/keras-yolo3-voc/Dir.jpg)
+![Alt text](https://github.com/wait1ess/keras-yolo3-voc/blob/master/Dir.jpg)
         
 ### 2、安装标注工具labelImg，标注数据
 
