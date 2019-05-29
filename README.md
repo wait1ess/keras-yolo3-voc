@@ -18,44 +18,46 @@ A Keras implementation of YOLOv3 (Tensorflow backend)  for  datas in Pascal VOC 
 ### 4.安装Anaconda，从Anaconda官网（https://www.continuum.io/downloads）  上下载安装包，选择Linux系统，安装基于Python 3.6版本
 对下载的文件授予可执行权限，然后进行安装：
 
+```
 bash Anaconda3-5.2.0-Linux-x86_64.sh  
+```
 
 当询问是否把Anaconda的bin添加到用户的环境变量中，选择yes
 
 ### 5.使用conda create命令创建虚拟环境到指定路径，并指定Python版本，同时可以将需要一起安装的包也一起指定：
-
+```
 conda create –n KerasYolo3Demo python=3.6 numpy scipy matplotlib jupyter
-
+```
 其中-n指定虚拟环境的名称（上面的是KerasYolo3Demo文件夹里）
 默认安装的路径位于anaconda安装目录下的envs文件夹里面，也可以使用—prefix参数来重新指定虚拟环境路径
 如果要查看有哪些虚拟环境，则执行以下命令：
-
+```
 conda info -envis
-
+```
 如果在创建conda虚拟环境时没有指定python的版本，则默认是使用anaconda安装目录下bin中的python版本。为了实现虚拟环境的隔离，必须指定python版本
 
 ### 6.激活虚拟环境
 创建好conda虚拟环境后，在使用之前必须先进行激活。下面激活刚创建的KerasYolo3Demo虚拟环境，命令如下：
-
+```
 conda source activate KerasYolo3Demo
-
+```
 如果要注销退出当前的虚拟环境，则执行命令：
-
+```
 conda source deactivate tensorflow
-
+```
 
 ### 7.安装tensorflow-gpu
-
+```
 conda source activate tensorflow
 conda install tensorflow-gpu
-
+```
 conda将会检测tensorflow-gpu的最新版本以及相关的依赖包，包括调用NVIDIA显卡所需要的Cuda、Cudnn等依赖环境，都会自动按顺序进行安装
 
 keras版本的yolo3还依赖于PIL工具包，如果之前没安装的，也要在anaconda中安装
-
+```
 conda install keras-gpu
 conda install pillow
-
+```
 ### 8.安装OpenCV（无法直接安装的，需要指定安装源）
 
 conda install --channel https://conda.anaconda.org/menpo opencv3
@@ -79,12 +81,12 @@ https://pjreddie.com/media/files/yolov3.weights
 # 三、使用预训练权重进行目标检测
 
 ### 1.转换权重文件，将前面下载的yolo权重文件yolov3.weights转换成适合Keras的模型文件，转换代码如下：
-
+```
 source activate tensorflow
 python convert.py -w yolov3.cfg yolov3.weights model_data/yolo_weights.h5
-
+```
 ### 2.修改yolo.py里面的相关路径配置，主要是model_path,classes_path和gpu_num
-
+```
 class YOLO(object):
     _defaults = {
         "model_path": 'model_data/yolo_weights.h5',
@@ -97,11 +99,11 @@ class YOLO(object):
         "model_image_size" : (416, 416),
         "gpu_num" : 0,
     }
-
+```
 ### 3、创建yolo实例，预测图片或视频
 
 图片如下：
-
+```
 if __name__ == '__main__':
     yolo=YOLO()
     path = 'D:/VOCtrainval_06-Nov-2007/yoloV3conf/keras-yolo3-master/test001.jpg'
@@ -114,14 +116,14 @@ if __name__ == '__main__':
         r_image.show()
 
     yolo.close_session()
-
+```
 视频如下：
-
+```
 if __name__ == '__main__':
     video_path="D:/VOCtrainval_06-Nov-2007/yoloV3conf/keras-yolo3-master/test002.mp4"
     output_path="D:/VOCtrainval_06-Nov-2007/yoloV3conf/keras-yolo3-master/result002.mp4"
     detect_video(YOLO(), video_path, output_path)
-
+```
 
 
 # 四、训练自己的目标检测模型（应用于VOC格式数据）
@@ -149,17 +151,17 @@ path/00002.jpg xmin,ymin,xmax,ymax,class xmin,ymin,xmax,ymax,class...
 这种文件格式跟前面制作好的VOC_2007标注文件（Main中的txt）的格式不一样，Keras-yolo3里面提供了voc格式转yolo格式的转换脚本 voc_annotation.py
 
 在转换格式之前，先打开voc_annotation.py文件，修改里面的classes的值为自己训练数据的label，然后执行即可，新的数据集标注文件保存于model_data目录
-
+```
 source activate tensorflow
 python voc_annotation.py
-
+```
 ### 5、创建类别文件voc_classes.txt
 
 ### 6、修改train.py里面的相关路径配置，主要有：annotation_path、classes_path、weights_path
-
+```
     annotation_path = 'model_data/2007_train.txt'
     log_dir = 'model_data/logs/000/'
     classes_path = 'model_data/voc_classes.txt'
     anchors_path = 'model_data/yolo_anchors.txt'
-
+```
 ### 7、训练，训练后的模型，默认保存路径为logs/000/trained_weights_final.h5
